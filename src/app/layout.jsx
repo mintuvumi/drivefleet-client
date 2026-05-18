@@ -1,6 +1,8 @@
-import "./globals.css";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import AuthProvider from "@/context/AuthProvider";
+import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "DriveFleet | Premium Car Rental",
@@ -11,9 +13,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster position="top-center" />
+        </AuthProvider>
       </body>
     </html>
   );
