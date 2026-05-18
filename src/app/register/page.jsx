@@ -30,7 +30,8 @@ export default function RegisterPage() {
 
     const name = e.target.name.value;
     const email = e.target.email.value;
-    const photo = e.target.photo.value;
+    const photo =
+      e.target.photo.value || "https://i.ibb.co/4pDNDk1/avatar.png";
     const password = e.target.password.value;
 
     const passwordError = validatePassword(password);
@@ -43,20 +44,22 @@ export default function RegisterPage() {
     try {
       await registerUser(email, password);
       await updateUserProfile(name, photo);
+
       toast.success("Registration successful");
       router.push("/login");
     } catch (error) {
-      toast.error("Registration failed");
+      toast.error(error.message || "Registration failed");
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
       await googleLogin();
+
       toast.success("Google login successful");
       router.push("/");
     } catch (error) {
-      toast.error("Google login failed");
+      toast.error(error.message || "Google login failed");
     }
   };
 
@@ -94,14 +97,18 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="font-bold text-slate-700">Photo URL</label>
+            <label className="font-bold text-slate-700">
+              Photo URL <span className="text-slate-400">(Optional)</span>
+            </label>
             <input
               type="url"
               name="photo"
-              required
               placeholder="https://i.ibb.co/photo.jpg"
               className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 outline-none focus:border-blue-500 focus:bg-white"
             />
+            <p className="text-xs text-slate-500 mt-2">
+              You can leave it empty. A default avatar will be used.
+            </p>
           </div>
 
           <div>
