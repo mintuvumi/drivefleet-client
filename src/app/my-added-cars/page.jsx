@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import PrivateRoute from "@/components/PrivateRoute";
 
 export default function MyAddedCarsPage() {
   const { user } = useAuth();
@@ -48,6 +49,7 @@ export default function MyAddedCarsPage() {
   };
 
   return (
+     <PrivateRoute>
     <main className="min-h-screen bg-slate-50 py-16">
       <div className="container-box">
         <div className="rounded-[40px] bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 p-8 md:p-14 text-white">
@@ -112,5 +114,6 @@ export default function MyAddedCarsPage() {
         )}
       </div>
     </main>
+    </PrivateRoute>
   );
 }

@@ -2,6 +2,7 @@
 
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
+import PrivateRoute from "@/components/PrivateRoute";
 
 export default function MyBookingsPage() {
   const { user } = useAuth();
@@ -16,6 +17,7 @@ export default function MyBookingsPage() {
   }, [user]);
 
   return (
+    <PrivateRoute>
     <main className="min-h-screen bg-slate-50 py-16">
       <div className="container-box">
         <h1 className="text-4xl md:text-6xl font-black">My Bookings</h1>
@@ -59,5 +61,6 @@ export default function MyBookingsPage() {
         )}
       </div>
     </main>
+    </PrivateRoute>
   );
 }
