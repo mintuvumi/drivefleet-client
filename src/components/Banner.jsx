@@ -1,53 +1,74 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+
+const slides = [
+  "/images/car-banner-1.jpg",
+  "/images/car-banner-2.jpg",
+  "/images/car-banner-3.jpg",
+];
 
 export default function Banner() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const slider = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 4000);
+
+    return () => clearInterval(slider);
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white">
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/30 blur-3xl rounded-full"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-400/20 blur-3xl rounded-full"></div>
+    <section className="relative h-screen w-full overflow-hidden">
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            current === index ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Image
+            src={slide}
+            alt="banner"
+            fill
+            priority
+            className="object-cover"
+          />
 
-      <div className="container-box relative grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-80px)] py-20">
-        <div>
-          <p className="inline-flex px-5 py-2 rounded-full bg-white/10 border border-white/15 text-blue-200 font-bold mb-7">
-            Premium Car Rental Platform
-          </p>
+          <div className="absolute inset-0 bg-black/50" />
 
-          <h1 className="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight">
-            Rent Your Dream Car With Confidence
-          </h1>
+          <div className="absolute inset-0 flex items-center">
+            <div className="container mx-auto px-6">
+              <div className="max-w-3xl text-white">
+                <p className="text-blue-400 font-bold uppercase tracking-[4px]">
+                  Premium Car Rental
+                </p>
 
-          <p className="mt-7 text-lg text-slate-300 leading-8 max-w-xl">
-            Explore premium cars, book instantly, manage your bookings and list
-            your own vehicles with DriveFleet.
-          </p>
+                <h1 className="text-5xl md:text-7xl font-black leading-tight mt-4">
+                  Drive Luxury Cars With Comfort
+                </h1>
 
-          <div className="mt-9 flex flex-wrap gap-4">
-            <Link
-              href="/explore-cars"
-              className="px-8 py-4 rounded-full bg-blue-600 text-white font-bold shadow-xl shadow-blue-900/40 hover:bg-blue-500 transition"
-            >
-              Explore Cars
-            </Link>
+                <p className="text-lg text-slate-200 mt-6 max-w-2xl">
+                  Experience premium driving with our luxury fleet.
+                  Book instantly and enjoy smooth rides.
+                </p>
 
-            <Link
-              href="/add-car"
-              className="px-8 py-4 rounded-full bg-white/10 border border-white/15 text-white font-bold hover:bg-white hover:text-slate-950 transition"
-            >
-              Add Your Car
-            </Link>
+                <div className="flex gap-4 mt-8">
+                  <button className="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-bold">
+                    Explore Cars
+                  </button>
+
+                  <button className="border border-white/40 hover:bg-white hover:text-black transition px-8 py-4 rounded-2xl font-bold">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="relative">
-          <div className="absolute inset-0 bg-blue-500 blur-3xl opacity-30 rounded-full"></div>
-
-          <img
-            src="/images/banner-car.png"
-            alt="Premium Car"
-            className="relative w-full max-h-[560px] object-contain drop-shadow-2xl"
-          />
-        </div>
-      </div>
+      ))}
     </section>
   );
 }

@@ -1,27 +1,28 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
 
 export default function CarCard({ car }) {
   return (
-    <div className="group bg-white rounded-[32px] overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-3 transition-all duration-500">
+    <div className="group relative overflow-hidden rounded-[36px] border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_80px_rgba(0,0,0,0.12)]">
       
       {/* IMAGE */}
-      <div className="relative h-64 overflow-hidden">
-        <img
+      <div className="relative h-[280px] overflow-hidden">
+        <Image
           src={car.image}
           alt={car.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+          fill
+          priority
+          className="object-cover transition duration-700 group-hover:scale-110"
         />
 
-        <div className="absolute top-4 left-4">
-          <span className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-sm font-black shadow-lg">
-            {car.type}
-          </span>
-        </div>
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
-        <div className="absolute top-4 right-4">
-          <span className="px-4 py-2 rounded-full bg-green-500 text-white text-sm font-black shadow-lg">
-            {car.status}
-          </span>
+        {/* STATUS */}
+        <div className="absolute left-5 top-5 rounded-full bg-blue-600 px-4 py-2 text-xs font-black uppercase tracking-[2px] text-white shadow-lg">
+          {car.status}
         </div>
       </div>
 
@@ -33,52 +34,52 @@ export default function CarCard({ car }) {
               {car.name}
             </h3>
 
-            <p className="text-slate-500 mt-2">
-              Premium rental vehicle
+            <p className="mt-2 text-slate-500">
+              {car.type}
             </p>
           </div>
 
           <div className="text-right">
-            <p className="text-sm text-slate-500">
-              Daily Rent
-            </p>
-
             <h4 className="text-3xl font-black text-blue-600">
               ${car.price}
             </h4>
+
+            <p className="text-sm text-slate-500">
+              Per Day
+            </p>
           </div>
         </div>
 
-        {/* FEATURES */}
-        <div className="grid grid-cols-2 gap-4 mt-8">
-          <div className="bg-slate-100 rounded-2xl p-4">
-            <p className="text-slate-500 text-sm">
-              Seat Capacity
+        {/* INFO */}
+        <div className="mt-7 grid grid-cols-2 gap-4">
+          <div className="rounded-2xl bg-slate-100 p-4 text-center">
+            <p className="text-sm text-slate-500">
+              Seats
             </p>
 
-            <h4 className="font-black text-lg mt-1">
-              {car.seats} Seats
-            </h4>
+            <h5 className="mt-1 text-xl font-black">
+              {car.seats}
+            </h5>
           </div>
 
-          <div className="bg-slate-100 rounded-2xl p-4">
-            <p className="text-slate-500 text-sm">
-              Availability
+          <div className="rounded-2xl bg-slate-100 p-4 text-center">
+            <p className="text-sm text-slate-500">
+              Transmission
             </p>
 
-            <h4 className="font-black text-lg mt-1">
-              Ready
-            </h4>
+            <h5 className="mt-1 text-xl font-black">
+              Auto
+            </h5>
           </div>
         </div>
 
         {/* BUTTON */}
-        <Link
-          href={`/cars/${car.id}`}
-          className="mt-8 flex items-center justify-center w-full py-4 rounded-2xl bg-slate-950 text-white font-black hover:bg-blue-600 transition-all duration-300"
-        >
-          View Details
-        </Link>
+      <Link
+        href={`/cars/${car._id || car.id}`}
+        className="mt-8 flex w-full items-center justify-center rounded-2xl bg-slate-900 py-4 text-lg font-black text-white transition duration-300 hover:bg-blue-600"
+      >
+        View Details
+      </Link>
       </div>
     </div>
   );
