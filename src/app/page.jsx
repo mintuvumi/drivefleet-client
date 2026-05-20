@@ -9,7 +9,7 @@ const cars = [
     price: 120,
     seats: 5,
     status: "Available",
-    image: "/images/car-1.jpg",
+    image: "/images/car-card-1.jpg",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const cars = [
     price: 100,
     seats: 5,
     status: "Available",
-    image: "/images/car-2.jpg",
+    image: "/images/car-card-2.jpg",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const cars = [
     price: 55,
     seats: 5,
     status: "Available",
-    image: "/images/car-1.jpg",
+    image: "/images/car-card-3.jpg",
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const cars = [
     price: 65,
     seats: 5,
     status: "Available",
-    image: "/images/car-2.jpg",
+    image: "/images/car-card-4.jpg",
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const cars = [
     price: 150,
     seats: 5,
     status: "Available",
-    image: "/images/car-1.jpg",
+    image: "/images/car-card-5.jpg",
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const cars = [
     price: 80,
     seats: 5,
     status: "Available",
-    image: "/images/car-2.jpg",
+    image: "/images/car-card-6.jpg",
   },
 ];
 
