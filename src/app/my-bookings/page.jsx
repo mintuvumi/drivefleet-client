@@ -31,6 +31,37 @@ export default function MyBookingsPage() {
     loadBookings();
   }, [user]);
 
+  const handleCancelBooking = async (id) => {
+    const confirmCancel = confirm(
+      "Are you sure you want to cancel this booking?"
+    );
+
+    if (!confirmCancel) return;
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/bookings/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.deletedCount > 0) {
+        toast.success("Booking cancelled successfully");
+
+        setBookings((prev) =>
+          prev.filter((booking) => booking._id !== id)
+        );
+      } else {
+        toast.error("Booking cancel failed");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <PrivateRoute>
       <main className="min-h-screen bg-slate-50 py-16">
@@ -147,6 +178,13 @@ export default function MyBookingsPage() {
                           </p>
                         </div>
                       </div>
+
+                      <button
+                        onClick={() => handleCancelBooking(booking._id)}
+                        className="mt-6 w-full rounded-2xl bg-red-500 py-4 font-black text-white transition hover:bg-red-600"
+                      >
+                        Cancel Booking
+                      </button>
                     </div>
                   </div>
                 ))}
